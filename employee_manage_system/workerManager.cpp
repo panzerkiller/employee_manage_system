@@ -30,6 +30,11 @@ WorkerManager::WorkerManager()
 		return;
 	}
 
+	// file exist, not empty
+	int num = this->get_EmpNum();
+	this->m_EmpNum = num;
+	cout << "Number of employees: " << num << endl;
+
 }
 
 //show menu
@@ -151,6 +156,22 @@ void WorkerManager::save()
 			<< this->m_EmpArray[i]->m_DeptId << "\t" << endl;
 	}
 	ofs.close();
+}
+
+int WorkerManager::get_EmpNum()
+{
+	ifstream ifs;
+	ifs.open(FILENAME, ios::in);
+
+	int id;
+	string name;
+	int dId;
+	int num = 0;
+	while (ifs >> id && ifs >> name && ifs >> dId)
+	{
+		num++;
+	}
+	return num;
 }
 
 WorkerManager::~WorkerManager()
