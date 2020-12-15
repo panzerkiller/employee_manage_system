@@ -29,6 +29,21 @@ WorkerManager::WorkerManager()
 		ifs.close();
 		return;
 	}
+	//if file exists
+	int num = this->get_EmpNum();
+	//get how many employee already exist
+	this->m_EmpNum = num;
+	//init memory room for exist emplyee
+	this->m_EmpArray = new Worker * [this->m_EmpNum];
+
+	this->init_Emp();
+
+	for (int i = 0; i < this->m_EmpNum; i++)
+	{
+		cout << " Worker ID: " << this->m_EmpArray[i]->m_Id
+			<< " Name: " << this->m_EmpArray[i]->m_Name
+			<< " Dept: " << this->m_EmpArray[i]->m_DeptId << endl;
+	}
 
 }
 
@@ -151,6 +166,70 @@ void WorkerManager::save()
 			<< this->m_EmpArray[i]->m_DeptId << "\t" << endl;
 	}
 	ofs.close();
+}
+
+
+//get number of employee in the exist file
+int WorkerManager::get_EmpNum()
+{
+	ifstream ifs;
+	ifs.open(FILENAME, ios::in);
+	int id;
+	string name;
+	int dId;
+	int num = 0;
+	while (ifs >> id && ifs >> name && ifs >> dId)
+	{
+		num++;
+	}
+	return num;
+}
+
+void WorkerManager::init_Emp()
+{
+	ifstream ifs;
+	ifs.open(FILENAME, ios::in);
+	int id;
+	string name;
+	int dId;
+	int index = 0;
+	while (ifs >> id && ifs >> name && ifs >> dId)
+	{
+		Worker* worker = NULL;
+		if (dId == 1)
+		{
+			worker = new Employee(id, name, dId);
+		}
+		else if (dId == 2)
+		{
+			worker = new Manager(id, name, dId);
+		}
+		else if (dId == 3)
+		{
+			worker = new Boss(id, name, dId);
+		}
+		this->m_EmpArray[index] = worker;
+		index++;
+	}
+	ifs.close();
+}
+
+void WorkerManager::show_Emp()
+{
+	//check if the file is empty
+	if (this->m_FileIsEmpty)
+	{
+		cout << "File not exist or empty!!" << endl;
+	}
+	else
+	{
+		for (int i = 0; i < m_EmpNum; i++)
+		{
+			this->m_EmpArray[i]->showInfo();
+		}
+	}
+	system("pause");
+	system("cls");
 }
 
 WorkerManager::~WorkerManager()

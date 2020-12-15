@@ -40,6 +40,7 @@ int main()
 			wm.Add_Emp();
 			break;
 		case 2:	// display all
+			wm.show_Emp();
 			break;
 		case 3: //	delete 1
 			break;

@@ -42,6 +42,12 @@ public:
 	//get number of workers in exist file
 	int get_EmpNum();
 
+	//init employee
+	void init_Emp();
+
+	//display employee
+	void show_Emp();
+
 	//destructor
 	~WorkerManager();
 };
