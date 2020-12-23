@@ -43,7 +43,9 @@ int main()
 			wm.show_Emp();
 			break;
 		case 3: //	delete 1
-			break;
+			wm.Del_emp();
+		break;
+		
 		case 4:	//	modify an employee
 			break;
 		case 5: //	find an employee

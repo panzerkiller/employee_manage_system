@@ -38,12 +38,12 @@ WorkerManager::WorkerManager()
 
 	this->init_Emp();
 
-	for (int i = 0; i < this->m_EmpNum; i++)
+	/*for (int i = 0; i < this->m_EmpNum; i++)
 	{
 		cout << " Worker ID: " << this->m_EmpArray[i]->m_Id
 			<< " Name: " << this->m_EmpArray[i]->m_Name
 			<< " Dept: " << this->m_EmpArray[i]->m_DeptId << endl;
-	}
+	}*/
 
 }
 
@@ -226,6 +226,52 @@ void WorkerManager::show_Emp()
 		for (int i = 0; i < m_EmpNum; i++)
 		{
 			this->m_EmpArray[i]->showInfo();
+		}
+	}
+	system("pause");
+	system("cls");
+}
+
+int WorkerManager::IsExist(int id)
+{
+	int index = -1;
+	for (int i = 0; i < this->m_EmpNum; i++)
+	{
+		if (this->m_EmpArray[i]->m_Id == id)
+		{
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+
+void WorkerManager::Del_emp()
+{
+	if (this->m_FileIsEmpty)
+	{
+		cout << "File is empty!" << endl;
+	}
+	else
+	{
+		int id = 0;
+		cout << "please intput worker id to be delete: " << endl;
+		cin >> id;
+		int index = this->IsExist(id);
+		if (index!=-1)
+		{
+			for (int i = index; i < this->m_EmpNum - 1; i++)
+			{
+				this->m_EmpArray[i] = this->m_EmpArray[i + 1];
+			}
+			this->m_EmpNum--;
+			this->save();
+			cout << "Delete successfully!" << endl;
+
+		}
+		else
+		{
+			cout << "worker not exist! delte failed! " << endl;
 		}
 	}
 	system("pause");

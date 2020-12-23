@@ -48,6 +48,12 @@ public:
 	//display employee
 	void show_Emp();
 
+	//check if employee exist
+	int IsExist(int id);
+
+	//delete worker
+	void Del_emp();
+
 	//destructor
 	~WorkerManager();
 };
