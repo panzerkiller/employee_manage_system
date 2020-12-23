@@ -47,8 +47,10 @@ int main()
 		break;
 		
 		case 4:	//	modify an employee
+			wm.Mod_Emp();
 			break;
 		case 5: //	find an employee
+			wm.Find_Emp();
 			break;
 		case 6: //	sort
 			break;

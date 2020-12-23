@@ -278,6 +278,121 @@ void WorkerManager::Del_emp()
 	system("cls");
 }
 
+void WorkerManager::Mod_Emp()
+{
+	if (this->m_FileIsEmpty)
+		cout << "file is empty!" << endl;
+	else
+	{
+		cout << "Please input employee id number to be modified:" << endl;
+		int id;
+		cin >> id;
+
+		int ret = this->IsExist(id);
+		if (ret != -1)
+		{
+			cout << "emplyee found!" << endl;
+			delete this->m_EmpArray[ret];
+
+			int newId = 0;
+			string newName = "";
+			int dSelect = 0;
+			cout << "Found id: " << id << " employee, please input new emplyee ID: " << endl;
+			cin >> newId;
+			cout << "Please input new name:" << endl;
+			cin >> newName;
+			cout << "Please input new department id:" << endl;
+			cout << "1. employee " << endl;
+			cout << "2. manager " << endl;
+			cout << "3. boss " << endl;
+			cin >> dSelect;
+
+			Worker* worker = NULL;
+
+			switch (dSelect)
+			{
+			case 1:
+				worker = new Employee(newId, newName, dSelect);
+				break;
+			case 2:
+				worker = new Manager(newId, newName, dSelect);
+				break;
+			case 3:
+				worker = new Boss(newId, newName, dSelect);
+				break;
+
+			}
+			this->m_EmpArray[ret] = worker;
+			cout << "Modification succeed!" << endl;
+			this->save();
+		}
+		else
+		{
+			cout << "employee not found!" << endl;
+		}
+
+	}
+	system("pause");
+	system("cls");
+}
+
+void WorkerManager::Find_Emp()
+{
+	if (this->m_FileIsEmpty)
+	{
+		cout << "file is empty!" << endl;
+	}
+	else
+	{
+		cout << "please choose method to find employee: 1. id 2. name " << endl;
+		int select = 0;
+		cin >> select;
+		if (select == 1)
+		{
+			cout << "please input employee id to find:" << endl;
+			int id = 0;
+			cin >> id;
+			int ret = this->IsExist(id);
+			if (ret != -1)
+			{
+				cout << "Employee found!" << endl;
+				this->m_EmpArray[ret]->showInfo();
+			}
+			else
+			{
+				cout << "employee id: " << id << " is not exist!" << endl;
+			}
+		}
+		else if (select == 2)
+		{
+			bool flag = false;
+			string name;
+			cout << "please input employee name to find:" << endl;
+			cin >> name;
+			for (int i = 0; i < this->m_EmpNum; i++)
+			{
+				if (this->m_EmpArray[i]->m_Name == name)
+				{
+					cout << "employee found: " << endl;
+					this->m_EmpArray[i]->showInfo();
+					flag = true;
+				}
+			}
+			if (flag == false)
+			{
+				cout << "not found!" << endl;
+			}
+		}
+		else
+		{
+			cout << "input is invalid!" << endl;
+		}
+
+	}
+	system("pause");
+	system("cls");
+}
+
 WorkerManager::~WorkerManager()
 
 {

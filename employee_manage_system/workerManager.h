@@ -54,6 +54,12 @@ public:
 	//delete worker
 	void Del_emp();
 
+	//modify worker
+	void Mod_Emp();
+
+	//search for an employee
+	void Find_Emp();
+
 	//destructor
 	~WorkerManager();
 };
