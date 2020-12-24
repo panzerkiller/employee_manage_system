@@ -393,6 +393,30 @@ void WorkerManager::Find_Emp()
 	system("cls");
 }
 
+void WorkerManager::Sort_Emp()
+{
+	if (this->m_FileIsEmpty)
+	{
+		cout << "file is empty!" << endl;
+		system("pause");
+		system("cls");
+	}
+	else
+	{
+		cout << "Please choose mode to sort: 1. Ascend 2. Descend" << endl;
+		int select;
+		cin >> select;
+		if (select == 1)
+		{
+			for(int i=0; i<this->m_EmpNum; i++)
+		}
+		else
+		{
+
+		}
+	}
+}
+
 WorkerManager::~WorkerManager()
 
 {

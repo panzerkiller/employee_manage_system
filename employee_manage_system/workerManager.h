@@ -60,6 +60,8 @@ public:
 	//search for an employee
 	void Find_Emp();
 
+	//sort
+	void Sort_Emp();
 	//destructor
 	~WorkerManager();
 };
