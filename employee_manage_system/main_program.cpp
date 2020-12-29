@@ -53,6 +53,7 @@ int main()
 			wm.Find_Emp();
 			break;
 		case 6: //	sort
+			wm.Sort_Emp();
 			break;
 		case 7:	//	delete all
 			break;

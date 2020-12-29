@@ -86,7 +86,7 @@ void WorkerManager::Add_Emp()
 		//calc new space size
 		int newSize = this->m_EmpNum + addNum; // new space = original + newly add
 		//call for new space
-		Worker ** newSpace = new Worker* [newSize];
+		Worker** newSpace = new Worker * [newSize];
 		//copy old data to new data
 		if (this->m_EmpArray != NULL)
 		{
@@ -95,53 +95,53 @@ void WorkerManager::Add_Emp()
 				newSpace[i] = this->m_EmpArray[i];
 			}
 		}
-			//batch input
-		for(int i=0; i<addNum ;i++)
+		//batch input
+		for (int i = 0; i < addNum; i++)
+		{
+			int id;
+			string name;
+			int dSelect;
+
+			cout << "Please input No." << i + 1 << " new worker's id:" << endl;
+			cin >> id;
+			cout << "Please input No." << i + 1 << " new worker's name:" << endl;
+			cin >> name;
+			cout << "Please select department: " << endl;
+			cout << "1. Employee" << endl;
+			cout << "2. Manager" << endl;
+			cout << "3. Boss" << endl;
+			cin >> dSelect;
+
+			Worker* worker = NULL;
+
+			switch (dSelect)
 			{
-				int id;
-				string name;
-				int dSelect;
-
-				cout << "Please input No." << i + 1 << " new worker's id:" << endl;
-				cin >> id;
-				cout << "Please input No." << i + 1 << " new worker's name:" << endl;
-				cin >> name;
-				cout << "Please select department: " << endl;
-				cout << "1. Employee" << endl;
-				cout << "2. Manager" << endl;
-				cout << "3. Boss" << endl;
-				cin >> dSelect;
-
-				Worker* worker = NULL;
-
-				switch (dSelect)
-				{
-				case 1:
-					worker = new Employee(id, name, 1);
-					break;
-				case 2:
-					worker = new Manager(id, name, 2);
-					break;
-				case 3:
-					worker = new Boss(id, name, 3);
-					break;
-				default:
-					break;
-				}
-				//store the worker pointer to an array
-				newSpace[this->m_EmpNum + i] = worker;
-
+			case 1:
+				worker = new Employee(id, name, 1);
+				break;
+			case 2:
+				worker = new Manager(id, name, 2);
+				break;
+			case 3:
+				worker = new Boss(id, name, 3);
+				break;
+			default:
+				break;
 			}
-			delete[] this->m_EmpArray;
-			//update new store address
-			this->m_EmpArray = newSpace;
-			//update new worker count
-			this->m_EmpNum = newSize;
-			cout << "Successfully added " << addNum << " workers!" << endl;
-			//update file status
-			this->m_FileIsEmpty = false;
-			//save to file
-			this->save();
+			//store the worker pointer to an array
+			newSpace[this->m_EmpNum + i] = worker;
+
+		}
+		delete[] this->m_EmpArray;
+		//update new store address
+		this->m_EmpArray = newSpace;
+		//update new worker count
+		this->m_EmpNum = newSize;
+		cout << "Successfully added " << addNum << " workers!" << endl;
+		//update file status
+		this->m_FileIsEmpty = false;
+		//save to file
+		this->save();
 	}
 	else
 	{
@@ -258,7 +258,7 @@ void WorkerManager::Del_emp()
 		cout << "please intput worker id to be delete: " << endl;
 		cin >> id;
 		int index = this->IsExist(id);
-		if (index!=-1)
+		if (index != -1)
 		{
 			for (int i = index; i < this->m_EmpNum - 1; i++)
 			{
@@ -406,14 +406,40 @@ void WorkerManager::Sort_Emp()
 		cout << "Please choose mode to sort: 1. Ascend 2. Descend" << endl;
 		int select;
 		cin >> select;
-		if (select == 1)
+		for (int i = 0; i < this->m_EmpNum; i++)
 		{
-			for(int i=0; i<this->m_EmpNum; i++)
-		}
-		else
-		{
+			int minOrMax = i;
 
+			for (int j = i+1; j < this->m_EmpNum; j++)
+			{
+				if (select == 1)
+				{
+					if (this->m_EmpArray[minOrMax]->m_Id > this->m_EmpArray[j]->m_Id)
+						minOrMax = j;
+
+				}
+				else
+				{
+					if (this->m_EmpArray[minOrMax]->m_Id < this->m_EmpArray[j]->m_Id)
+						minOrMax = j;
+				}
+				
+
+			}
+		
+		if(i!=minOrMax)
+		{
+			Worker* temp = m_EmpArray[i];
+			m_EmpArray[i] = m_EmpArray[minOrMax];
+			m_EmpArray[minOrMax] = temp;
+			//delete temp;
 		}
+		
+		}
+		cout << "Successfully ordered!" << endl;
+		this->save();
+		this->show_Emp();
+
 	}
 }
 
