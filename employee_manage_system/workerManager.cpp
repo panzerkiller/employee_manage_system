@@ -443,11 +443,50 @@ void WorkerManager::Sort_Emp()
 	}
 }
 
+void WorkerManager::Clear_Emp()
+{
+	cout << "Do you really want to clear all data?" << endl;
+	cout << "1. Yes 2. No" << endl;
+	int select = 0;
+	cin >> select;
+	if (select == 1)
+	{
+		ofstream ofs(FILENAME, ios::trunc);
+		ofs.close();
+
+		if (this->m_EmpArray != NULL)
+		{
+			for (int i = 0; i < this->m_EmpNum; i++)
+			{
+				if (this->m_EmpArray[i] != NULL)
+				{
+					delete this->m_EmpArray[i];
+				}
+			}
+			this->m_EmpNum = 0;
+			delete[] this->m_EmpArray;
+			this->m_EmpArray = NULL;
+			this->m_FileIsEmpty = true;
+		}
+		cout << "Clear success!" << endl;
+
+	}
+	system("pause");
+	system("cls");
+}
+
 WorkerManager::~WorkerManager()
 
 {
 	if (this->m_EmpArray != NULL)
 	{
+		for (int i = 0; i < this->m_EmpNum; i++)
+		{
+			if (this->m_EmpArray[i] != NULL)
+			{
+				delete this->m_EmpArray[i];
+			}
+		}
 		delete[] this->m_EmpArray;
 		this->m_EmpArray = NULL;
 	}

@@ -62,6 +62,9 @@ public:
 
 	//sort
 	void Sort_Emp();
+
+	//clear
+	void Clear_Emp();
 	//destructor
 	~WorkerManager();
 };

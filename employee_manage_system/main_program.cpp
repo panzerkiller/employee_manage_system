@@ -56,6 +56,7 @@ int main()
 			wm.Sort_Emp();
 			break;
 		case 7:	//	delete all
+			wm.Clear_Emp();
 			break;
 		default:
 			break;
